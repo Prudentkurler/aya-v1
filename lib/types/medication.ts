@@ -1,12 +1,15 @@
 export interface Medication {
-  id: string;
+  id?: string;
+  serverId?: string;
+  userId: string;
   name: string;
   dosage: string;
-  frequency: "once-daily" | "twice-daily" | "three-times" | "as-needed";
-  prescribedDate: Date;
-  notes?: string;
-  active: boolean;
-  synced: boolean;
+  frequency: string;
+  startDate: Date;
+  endDate?: Date;
+  instructions?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface MedicationAdherence {

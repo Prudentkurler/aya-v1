@@ -30,11 +30,11 @@ export default function MedicationsAddPage() {
 
   const onSubmit = async (data: MedicationFormData) => {
     const medication: Medication = {
-      id: Date.now().toString(),
+      userId: 'demo-user-123', // TODO: Get from auth context
       ...data,
-      prescribedDate: new Date(),
-      active: true,
-      synced: false,
+      startDate: new Date(),
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     try {

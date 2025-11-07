@@ -1,20 +1,20 @@
-export interface User {
-  id: string;
-  name: string;
-  phoneNumber: string;
-  dateOfBirth: Date;
-  gender: "male" | "female" | "other";
-  ghanaCardId?: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
-
-export interface UserProfile extends User {
-  conditions: string[]; // e.g., ["hypertension", "diabetes"]
+export interface UserProfile {
+  id?: number;
+  userId: string;
+  firstName: string;
+  lastName?: string;
+  dateOfBirth?: Date;
+  gender?: 'male' | 'female' | 'other';
+  phone?: string;
+  bloodType?: string;
   emergencyContact?: string;
-  language: string; // e.g., "en", "tw", "ga"
-  literacyLevel: "high" | "medium" | "low";
+  emergencyContactPhone?: string;
+  medicalHistory?: string;
+  allergies?: string;
+  language: 'en' | 'tw' | 'ga' | 'dag' | 'ee' | 'fat';
+  literacyLevel: 'high' | 'medium' | 'low';
   nhisNumber?: string;
+  ghanaCardId?: string;
   community?: string;
   householdId?: string;
   location?: {
@@ -22,5 +22,7 @@ export interface UserProfile extends User {
     longitude: number;
   };
   photoUrl?: string;
-  fingerprintData?: string; // Placeholder for biometric data
+  fingerprintData?: string;
+  createdAt: Date;
+  updatedAt: Date;
 }

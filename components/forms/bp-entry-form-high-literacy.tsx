@@ -7,6 +7,7 @@ import { z } from 'zod';
 import { toast } from 'sonner';
 import { db } from '@/lib/db/schema';
 import { validateBPReading } from '@/lib/utils/validators';
+import type { Measurement } from '@/lib/types/measurement';
 
 /**
  * High-literacy BP entry form
@@ -64,8 +65,10 @@ export function BPEntryFormHighLiteracy({ userId, onSuccess, isLoading }: BPEntr
   const onSubmit = async (data: BPFormData) => {
     setIsSaving(true);
     try {
-      const measurementData = {
-        type: 'blood_pressure' as const,
+      const userId = 'demo-user-123'; // TODO: Get from auth
+      const measurement: Measurement = {
+        userId,
+        type: 'blood_pressure',
         systolic: data.systolic,
         diastolic: data.diastolic,
         heartRate: data.heartRate,
@@ -77,25 +80,18 @@ export function BPEntryFormHighLiteracy({ userId, onSuccess, isLoading }: BPEntr
           .filter(Boolean)
           .join('\n'),
         measuredAt: new Date(),
+        timestamp: new Date(),
+        synced: 0,
+        createdAt: new Date(),
+        updatedAt: new Date(),
       };
 
       // Add to local database
-      const id = await db.measurements.add({
-        userId,
-        type: 'blood_pressure',
-        systolic: data.systolic,
-        diastolic: data.diastolic,
-        heartRate: data.heartRate,
-        notes: measurementData.notes,
-        measuredAt: new Date(),
-        synced: navigator.onLine ? 1 : 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+      const id = await db.measurements.add(measurement);
 
       // Add to sync queue if offline
       if (!navigator.onLine) {
-        await db.addToSyncQueue(userId, 'CREATE', 'measurement', id, measurementData);
+        await db.addToSyncQueue(userId, 'CREATE', 'measurement', Number(id), measurement);
         toast.info('Measurement saved. Will sync when online.');
       } else {
         toast.success('Blood pressure recorded successfully!');
@@ -108,16 +104,16 @@ export function BPEntryFormHighLiteracy({ userId, onSuccess, isLoading }: BPEntr
           'critical',
           'Critical Blood Pressure Reading',
           `Your blood pressure (${data.systolic}/${data.diastolic}) is critically high. Please seek immediate medical attention.`,
-          id
+          Number(id)
         );
+        
         toast.error('⚠️ CRITICAL: Please seek medical attention immediately!');
       }
 
       reset();
-      onSuccess?.();
-    } catch (error: any) {
-      console.error('Error saving measurement:', error);
-      toast.error(error?.message || 'Failed to save blood pressure reading');
+    } catch (error) {
+      console.error('Error saving BP measurement:', error);
+      toast.error('Failed to save blood pressure reading');
     } finally {
       setIsSaving(false);
     }

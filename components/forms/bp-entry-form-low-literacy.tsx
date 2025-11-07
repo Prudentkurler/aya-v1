@@ -127,17 +127,7 @@ export function BPEntryFormLowLiteracy({
       }
 
       // Save to database
-      const id = await db.measurements.add({
-        userId,
-        type: 'blood_pressure',
-        systolic: sys,
-        diastolic: dia,
-        notes: 'Low-literacy form entry',
-        measuredAt: new Date(),
-        synced: navigator.onLine ? 1 : 0,
-        createdAt: new Date(),
-        updatedAt: new Date(),
-      });
+  
 
       // Check for critical reading
       const bpStatus = validateBPReading(sys, dia);
@@ -147,7 +137,7 @@ export function BPEntryFormLowLiteracy({
           'critical',
           'Critical Blood Pressure Reading',
           `Your blood pressure (${sys}/${dia}) is critically high. Please seek immediate medical attention.`,
-          id
+          
         );
         speak('Warning! Your blood pressure is very high. Please seek medical help immediately.');
         toast.error('⚠️ CRITICAL: Please seek medical attention immediately!');

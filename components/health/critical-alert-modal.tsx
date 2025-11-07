@@ -2,7 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { AlertTriangle, X } from 'lucide-react';
-import { db, type HealthAlert } from '@/lib/db/schema';
+import { db } from '@/lib/db/schema';
+import type { HealthAlert } from '@/lib/types';
 
 /**
  * Critical alert modal for displaying urgent health alerts

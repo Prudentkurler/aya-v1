@@ -1,27 +1,31 @@
-export type MeasurementType = "bp" | "glucose";
+export type MeasurementType = "blood_pressure" | "glucose";
 
 export interface Measurement {
-  id: string;
+  id?: string;
+  serverId?: string;
+  userId: string;
   type: MeasurementType;
-  value: number;
-  secondaryValue?: number; // For BP (diastolic)
-  timestamp: Date;
+  systolic?: number; // BP systolic
+  diastolic?: number; // BP diastolic
+  heartRate?: number; // Optional heart rate
+  glucoseLevel?: number; // Glucose in mg/dL
   notes?: string;
-  unit: "mmHg" | "mg/dL";
-  synced: boolean;
+  timestamp: Date;
+  measuredAt: Date;
+  synced: 0 | 1; // 0 = not synced, 1 = synced to server
+  createdAt: Date;
+  updatedAt: Date;
 }
 
 export interface BloodPressureMeasurement extends Measurement {
-  type: "bp";
-  value: number; // systolic
-  secondaryValue: number; // diastolic
-  unit: "mmHg";
+  type: "blood_pressure";
+  systolic: number;
+  diastolic: number;
 }
 
 export interface GlucoseMeasurement extends Measurement {
   type: "glucose";
-  value: number;
-  unit: "mg/dL";
+  glucoseLevel: number;
 }
 
 export interface MeasurementStats {

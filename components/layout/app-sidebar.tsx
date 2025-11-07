@@ -19,6 +19,9 @@ import {
   Bell,
   Home,
   ChevronDown,
+  FilePlus2,
+  ClipboardPlus,
+  Send,
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -61,24 +64,28 @@ export function AppSidebar({ userType = 'patient' }: AppSidebarProps) {
         return [
           {
             label: 'Dashboard',
-            href: '/clinician',
+            href: '/clinician/dashboard',
             icon: <LayoutDashboard className="w-5 h-5" />,
           },
           {
             label: 'Patients',
             href: '/clinician/patients',
             icon: <Users className="w-5 h-5" />,
-            badge: 24,
           },
           {
-            label: 'Patient Care',
-            href: '#',
-            icon: <Stethoscope className="w-5 h-5" />,
-            children: [
-              { label: 'Active Cases', href: '/clinician/cases', icon: <ClipboardList className="w-4 h-4" /> },
-              { label: 'Referrals', href: '/clinician/referrals', icon: <TrendingUp className="w-4 h-4" /> },
-              { label: 'Reports', href: '/clinician/reports', icon: <BarChart3 className="w-4 h-4" /> },
-            ],
+            label: 'ePrescriptions',
+            href: '/clinician/eprescriptions',
+            icon: <ClipboardPlus className="w-5 h-5" />,
+          },
+          {
+            label: 'Referrals',
+            href: '/clinician/referrals',
+            icon: <Send className="w-5 h-5" />,
+          },
+          {
+            label: 'DHIMS2 Reports',
+            href: '/clinician/reports',
+            icon: <BarChart3 className="w-5 h-5" />,
           },
           {
             label: 'Alerts',
@@ -96,24 +103,27 @@ export function AppSidebar({ userType = 'patient' }: AppSidebarProps) {
         return [
           {
             label: 'Dashboard',
-            href: '/cwh',
+            href: '/cwh/dashboard',
             icon: <LayoutDashboard className="w-5 h-5" />,
           },
           {
-            label: 'Community',
-            href: '/cwh/community',
+            label: 'Patient Registry',
+            href: '/cwh/patients',
             icon: <Users className="w-5 h-5" />,
-            badge: 127,
+            children: [
+              { label: 'View Patients', href: '/cwh/patients', icon: <Users className="w-4 h-4" /> },
+              { label: 'Register New', href: '/cwh/patients/register', icon: <FilePlus2 className="w-4 h-4" /> },
+            ],
           },
           {
-            label: 'Health Programs',
-            href: '#',
-            icon: <Heart className="w-5 h-5" />,
-            children: [
-              { label: 'Screening Events', href: '/cwh/screening', icon: <ClipboardList className="w-4 h-4" /> },
-              { label: 'Follow-ups', href: '/cwh/followups', icon: <TrendingUp className="w-4 h-4" /> },
-              { label: 'Health Metrics', href: '/cwh/metrics', icon: <BarChart3 className="w-4 h-4" /> },
-            ],
+            label: 'Home Visits',
+            href: '/cwh/visits',
+            icon: <Home className="w-5 h-5" />,
+          },
+          {
+            label: 'Referrals',
+            href: '/cwh/referrals',
+            icon: <Send className="w-5 h-5" />,
           },
           {
             label: 'Alerts',
@@ -130,28 +140,23 @@ export function AppSidebar({ userType = 'patient' }: AppSidebarProps) {
       default: // patient
         return [
           {
-            label: 'Home',
-            href: '/',
-            icon: <Home className="w-5 h-5" />,
-          },
-          {
             label: 'Dashboard',
             href: '/dashboard',
             icon: <LayoutDashboard className="w-5 h-5" />,
           },
           {
-            label: 'Health',
+            label: 'Measurements',
             href: '#',
             icon: <Heart className="w-5 h-5" />,
             children: [
-              { label: 'Measurements', href: '/measurements', icon: <BarChart3 className="w-4 h-4" /> },
+              { label: 'View All', href: '/measurements', icon: <BarChart3 className="w-4 h-4" /> },
               { label: 'Add Reading', href: '/measurements/add', icon: <Heart className="w-4 h-4" /> },
               { label: 'Trends', href: '/measurements/trends', icon: <TrendingUp className="w-4 h-4" /> },
             ],
           },
           {
             label: 'Medications',
-            href: '/medications',
+            href: '/medications/list',
             icon: <Pill className="w-5 h-5" />,
           },
           {

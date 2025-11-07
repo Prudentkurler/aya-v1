@@ -13,7 +13,8 @@ export default function MedicationsListPage() {
     const fetchMedications = async () => {
       try {
         const data = await db.medications.toArray();
-        const activeMeds = data.filter((m) => m.active);
+        // Filter out medications with endDate in the past
+        const activeMeds = data.filter((m) => !m.endDate || new Date(m.endDate) > new Date());
         setMedications(activeMeds);
       } catch (error) {
         console.error("Failed to fetch medications:", error);
@@ -27,12 +28,14 @@ export default function MedicationsListPage() {
 
   const toggleMedication = async (medication: Medication) => {
     try {
-      await db.medications.update(medication.id, {
-        active: !medication.active,
+      const newEndDate = medication.endDate ? undefined : new Date();
+      await db.medications.update(medication.id!, {
+        endDate: newEndDate,
+        updatedAt: new Date(),
       });
       setMedications((prev) =>
         prev.map((m) =>
-          m.id === medication.id ? { ...m, active: !m.active } : m
+          m.id === medication.id ? { ...m, endDate: newEndDate } : m
         )
       );
     } catch (error) {
@@ -96,19 +99,19 @@ export default function MedicationsListPage() {
                     {med.name}
                   </p>
                   <p className="text-sm text-slate-600 dark:text-slate-400">
-                    {med.dosage} • {med.frequency.replace("-", " ")}
+                    {med.dosage} • {med.frequency}
                   </p>
-                  {med.notes && (
-                    <p className="mt-1 text-xs text-slate-500">{med.notes}</p>
+                  {med.instructions && (
+                    <p className="mt-1 text-xs text-slate-500">{med.instructions}</p>
                   )}
                 </div>
                 <button
                   onClick={() => toggleMedication(med)}
                   className={`rounded-full px-3 py-1 text-sm font-medium text-white transition-colors ${
-                    med.active ? "bg-green-500 hover:bg-green-600" : "bg-slate-400 hover:bg-slate-500"
+                    !med.endDate ? "bg-green-500 hover:bg-green-600" : "bg-slate-400 hover:bg-slate-500"
                   }`}
                 >
-                  {med.active ? "Active" : "Inactive"}
+                  {!med.endDate ? "Active" : "Inactive"}
                 </button>
               </div>
             </div>

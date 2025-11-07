@@ -37,14 +37,16 @@ export function BPEntryForm() {
     const validation = validateBloodPressure(data.systolic, data.diastolic);
 
     const measurement: Measurement = {
-      id: Date.now().toString(),
-      type: "bp",
-      value: data.systolic,
-      secondaryValue: data.diastolic,
-      unit: "mmHg",
+      userId: "current-user", // TODO: Get from auth context
+      type: "blood_pressure",
+      systolic: data.systolic,
+      diastolic: data.diastolic,
+      measuredAt: new Date(),
       timestamp: new Date(),
       notes: data.notes,
-      synced: false,
+      synced: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     try {
@@ -127,13 +129,15 @@ export function GlucoseEntryForm() {
     const validation = validateGlucose(data.glucose);
 
     const measurement: Measurement = {
-      id: Date.now().toString(),
+      userId: "current-user", // TODO: Get from auth context
       type: "glucose",
-      value: data.glucose,
-      unit: "mg/dL",
+      glucoseLevel: data.glucose,
+      measuredAt: new Date(),
       timestamp: new Date(),
       notes: data.notes,
-      synced: false,
+      synced: 0,
+      createdAt: new Date(),
+      updatedAt: new Date(),
     };
 
     try {

@@ -13,7 +13,8 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import { db, type Measurement } from '@/lib/db/schema';
+import { db } from '@/lib/db/schema';
+import type { Measurement } from '@/lib/types';
 import { formatDate } from '@/lib/utils/formatters';
 
 /**

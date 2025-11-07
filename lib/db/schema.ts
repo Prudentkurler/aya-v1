@@ -32,7 +32,7 @@ export class HealthDB extends Dexie {
 
   constructor() {
     super('HealthDB');
-    this.version(1).stores({
+    this.version(2).stores({
       measurements:
         '++id, userId, serverId, type, measuredAt, synced, [userId+type+measuredAt]',
       medications: '++id, userId, serverId, createdAt',
@@ -77,7 +77,7 @@ export class HealthDB extends Dexie {
   async addToSyncQueue(
     userId: string,
     operation: 'CREATE' | 'UPDATE' | 'DELETE',
-    entity: 'measurement' | 'medication' | 'adherence' | 'profile',
+    entity: 'measurement' | 'medication' | 'adherence' | 'profile' | 'eprescription' | 'chwVisit' | 'referral',
     entityId: number,
     data: Record<string, any>,
     serverId?: string

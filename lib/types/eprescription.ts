@@ -1,17 +1,23 @@
 export interface EPrescription {
   id?: number;
   serverId?: string;
-  userId: string;
   clinicianId: string;
+  patientId: string;
+  patientName: string;
+  diagnosis: string;
   medications: Array<{
     name: string;
     dosage: string;
     frequency: string;
-    duration: string;
-    notes?: string;
+    duration?: string;
+    instructions?: string;
   }>;
-  nhisVerified: boolean;
-  dispensed: boolean;
-  createdAt: number;
-  synced: boolean;
+  status: 'active' | 'completed' | 'cancelled';
+  nhisVerified?: boolean;
+  dispensed?: boolean;
+  notes?: string;
+  createdAt: Date;
+  updatedAt: Date;
+  synced?: 0 | 1;
 }
+

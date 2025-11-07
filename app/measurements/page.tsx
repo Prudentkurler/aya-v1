@@ -60,13 +60,13 @@ export default function MeasurementsPage() {
             >
               <div className="flex items-start justify-between">
                 <div>
-                  {m.type === "bp" ? (
+                  {m.type === "blood_pressure" ? (
                     <>
                       <p className="font-semibold text-slate-900 dark:text-white">
                         Blood Pressure
                       </p>
                       <p className="text-2xl font-bold text-slate-900 dark:text-white">
-                        {m.value}/{m.secondaryValue} mmHg
+                        {m.systolic}/{m.diastolic} mmHg
                       </p>
                     </>
                   ) : (
@@ -75,30 +75,30 @@ export default function MeasurementsPage() {
                         Glucose
                       </p>
                       <p className="text-2xl font-bold text-slate-900 dark:text-white">
-                        {m.value} mg/dL
+                        {m.glucoseLevel} mg/dL
                       </p>
                     </>
                   )}
                   <p className="mt-2 text-xs text-slate-500 dark:text-slate-400">
-                    {formatDate(m.timestamp)} at {formatTime(m.timestamp)}
+                    {formatDate(m.measuredAt)} at {formatTime(m.measuredAt)}
                   </p>
                 </div>
                 <div
                   className={`rounded-full px-3 py-1 text-sm font-medium text-white ${
-                    m.type === "bp"
-                      ? getBPStatusColor(m.value) === "green"
+                    m.type === "blood_pressure"
+                      ? getBPStatusColor(m.systolic!) === "green"
                         ? "bg-green-500"
-                        : getBPStatusColor(m.value) === "yellow"
+                        : getBPStatusColor(m.systolic!) === "yellow"
                           ? "bg-yellow-500"
                           : "bg-red-500"
-                      : getGlucoseStatusColor(m.value) === "green"
+                      : getGlucoseStatusColor(m.glucoseLevel!) === "green"
                         ? "bg-green-500"
-                        : getGlucoseStatusColor(m.value) === "yellow"
+                        : getGlucoseStatusColor(m.glucoseLevel!) === "yellow"
                           ? "bg-yellow-500"
                           : "bg-red-500"
                   }`}
                 >
-                  {m.type === "bp" ? "BP" : "Glucose"}
+                  {m.type === "blood_pressure" ? "BP" : "Glucose"}
                 </div>
               </div>
               {m.notes && (

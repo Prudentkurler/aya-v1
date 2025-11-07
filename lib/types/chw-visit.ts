@@ -1,12 +1,30 @@
 export interface CHWVisit {
   id?: number;
   serverId?: string;
-  userId: string;
   chwId: string;
-  visitDate: number;
-  reason: string;
-  activities: string[]; // e.g., 'Blood Pressure Check', 'Medication Adherence Counseling'
+  patientId: string;
+  patientName: string;
+  visitDate: Date;
+  status: 'scheduled' | 'in-progress' | 'completed' | 'cancelled';
+  community?: string;
+  vitals?: {
+    bloodPressure?: string;
+    heartRate?: number;
+    temperature?: number;
+    weight?: number;
+  };
+  medicationAdherence?: {
+    medicationsTaken: string;
+    missedDoses: number;
+  };
+  concerns?: string;
   notes?: string;
-  nextVisitDate?: number;
-  synced: boolean;
+  recommendations?: string;
+  needsReferral?: boolean;
+  referralReason?: string;
+  nextVisitDate?: Date;
+  createdAt: Date;
+  updatedAt: Date;
+  synced?: 0 | 1;
 }
+
