@@ -16,10 +16,10 @@ const patients = [
 export default function CHWPatientsPage() {
   return (
     <DashboardLayout userType="cwh">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Patient Registry</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <h1 className="text-2xl md:text-3xl font-bold">Patient Registry</h1>
         <Link href="/cwh/patients/register" passHref>
-          <Button>
+          <Button className="w-full sm:w-auto">
             <PlusCircle className="mr-2 h-4 w-4" /> Register New Patient
           </Button>
         </Link>
@@ -28,15 +28,15 @@ export default function CHWPatientsPage() {
         <CardHeader>
           <CardTitle>Community Patients</CardTitle>
         </CardHeader>
-        <CardContent>
+        <CardContent className="p-0">
           <div className="overflow-x-auto">
             <table className="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
               <thead className="bg-gray-50 dark:bg-gray-800">
                 <tr>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Last Visit</th>
-                  <th scope="col" className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
-                  <th scope="col" className="relative px-6 py-3">
+                  <th scope="col" className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Name</th>
+                  <th scope="col" className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Last Visit</th>
+                  <th scope="col" className="px-4 sm:px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider whitespace-nowrap">Status</th>
+                  <th scope="col" className="relative px-4 sm:px-6 py-3">
                     <span className="sr-only">View</span>
                   </th>
                 </tr>
@@ -44,9 +44,9 @@ export default function CHWPatientsPage() {
               <tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-900 dark:divide-gray-700">
                 {patients.map((patient) => (
                   <tr key={patient.id}>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{patient.name}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{patient.lastVisit}</td>
-                    <td className="px-6 py-4 whitespace-nowrap text-sm">
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white">{patient.name}</td>
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400">{patient.lastVisit}</td>
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-sm">
                       <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${
                         patient.status === 'Stable'
                           ? 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300'
@@ -55,7 +55,7 @@ export default function CHWPatientsPage() {
                         {patient.status}
                       </span>
                     </td>
-                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                    <td className="px-4 sm:px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                       <Button variant="link" size="sm">View</Button>
                     </td>
                   </tr>

@@ -12,7 +12,6 @@ import {
   Settings,
   LogOut,
   Menu,
-  X,
   Stethoscope,
   ClipboardList,
   TrendingUp,
@@ -200,7 +199,7 @@ export function AppSidebar({ userType = 'patient' }: AppSidebarProps) {
         onClick={() => setIsOpen(!isOpen)}
         className="fixed top-4 left-4 z-50 md:hidden bg-white border border-slate-200 rounded-lg p-2 hover:bg-slate-50 dark:bg-slate-900 dark:border-slate-800"
       >
-        {isOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+        <Menu className="w-5 h-5" />
       </button>
 
       {/* Overlay for mobile */}
