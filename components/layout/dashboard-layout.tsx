@@ -19,7 +19,7 @@ export function DashboardLayout({ children, userType = 'patient' }: DashboardLay
 
         {/* Main Content */}
         <main className="flex-1 overflow-auto">
-          <div className="container mx-auto p-3 sm:p-4 md:p-6 lg:p-8 max-w-7xl w-full">
+          <div className="container mx-auto p-4 md:p-6 max-w-7xl w-full">
             {children}
           </div>
         </main>
