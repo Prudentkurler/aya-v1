@@ -21,19 +21,19 @@ export default function MeasurementsPage() {
   return (
     <DashboardLayout userType="patient">
       {/* Page Header */}
-      <div className="mb-6">
-        <div className="flex items-center justify-between">
+      <div className="mb-4 md:mb-6">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-slate-900 dark:text-white">
+            <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white">
               Health Measurements
             </h1>
-            <p className="text-slate-600 dark:text-slate-400 mt-1">
+            <p className="text-sm md:text-base text-slate-600 dark:text-slate-400 mt-1">
               Track and manage your health readings
             </p>
           </div>
           <Link
             href="/measurements/add"
-            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-white hover:bg-blue-700 transition-colors"
+            className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2 text-sm md:text-base text-white hover:bg-blue-700 transition-colors w-full sm:w-auto justify-center"
           >
             <span>+ Add Reading</span>
           </Link>
@@ -41,7 +41,7 @@ export default function MeasurementsPage() {
       </div>
 
       {/* Main Content */}
-      <div className="space-y-4">
+      <div className="space-y-3 md:space-y-4">
         {measurements.length === 0 ? (
           <div className="rounded-xl bg-white p-6 text-center shadow-md dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
             <p className="text-slate-500 dark:text-slate-400">No measurements yet.</p>
@@ -56,25 +56,25 @@ export default function MeasurementsPage() {
           measurements.map((m) => (
             <div
               key={m.id}
-              className="rounded-lg bg-white p-4 shadow-sm dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow"
+              className="rounded-lg bg-white p-3 md:p-4 shadow-sm dark:bg-slate-800 border border-slate-200 dark:border-slate-700 hover:shadow-md transition-shadow"
             >
-              <div className="flex items-start justify-between">
-                <div>
+              <div className="flex items-start justify-between gap-3">
+                <div className="flex-1">
                   {m.type === "blood_pressure" ? (
                     <>
-                      <p className="font-semibold text-slate-900 dark:text-white">
+                      <p className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">
                         Blood Pressure
                       </p>
-                      <p className="text-2xl font-bold text-slate-900 dark:text-white">
+                      <p className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
                         {m.systolic}/{m.diastolic} mmHg
                       </p>
                     </>
                   ) : (
                     <>
-                      <p className="font-semibold text-slate-900 dark:text-white">
+                      <p className="text-sm md:text-base font-semibold text-slate-900 dark:text-white">
                         Glucose
                       </p>
-                      <p className="text-2xl font-bold text-slate-900 dark:text-white">
+                      <p className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white">
                         {m.glucoseLevel} mg/dL
                       </p>
                     </>
@@ -84,7 +84,7 @@ export default function MeasurementsPage() {
                   </p>
                 </div>
                 <div
-                  className={`rounded-full px-3 py-1 text-sm font-medium text-white ${
+                  className={`rounded-full px-2 md:px-3 py-1 text-xs md:text-sm font-medium text-white shrink-0 ${
                     m.type === "blood_pressure"
                       ? getBPStatusColor(m.systolic!) === "green"
                         ? "bg-green-500"
@@ -102,7 +102,7 @@ export default function MeasurementsPage() {
                 </div>
               </div>
               {m.notes && (
-                <p className="mt-2 text-sm text-slate-600 dark:text-slate-400">
+                <p className="mt-2 text-xs md:text-sm text-slate-600 dark:text-slate-400">
                   Note: {m.notes}
                 </p>
               )}

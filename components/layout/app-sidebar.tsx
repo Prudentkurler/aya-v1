@@ -51,6 +51,13 @@ export function AppSidebar({ userType = 'patient' }: AppSidebarProps) {
     }
   }, []);
 
+  // Auto-close sidebar on mobile when route changes
+  useEffect(() => {
+    if (typeof window !== 'undefined' && window.innerWidth < 768) {
+      setIsOpen(false);
+    }
+  }, [pathname]);
+
   const toggleExpand = (label: string) => {
     setExpandedItems((prev) =>
       prev.includes(label) ? prev.filter((item) => item !== label) : [...prev, label]
@@ -202,8 +209,9 @@ export function AppSidebar({ userType = 'patient' }: AppSidebarProps) {
       {/* Sidebar */}
       <aside
         className={cn(
-          'fixed left-0 top-0 z-40 h-screen w-64 border-r border-slate-200 bg-white transition-transform duration-300 dark:border-slate-800 dark:bg-slate-950',
-          isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
+          'fixed left-0 top-0 z-40 h-screen w-64 border-r border-slate-200 bg-white transition-transform duration-300 dark:border-slate-800 dark:bg-slate-950 overflow-hidden',
+          isOpen ? 'translate-x-0' : '-translate-x-full',
+          'md:translate-x-0'
         )}
       >
         {/* Logo */}

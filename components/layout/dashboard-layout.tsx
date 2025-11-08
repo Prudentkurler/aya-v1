@@ -14,12 +14,12 @@ export function DashboardLayout({ children, userType = 'patient' }: DashboardLay
     <div className="flex min-h-screen bg-slate-50 dark:bg-slate-950">
       <AppSidebar userType={userType} />
 
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col w-full md:ml-64">
         <TopNav />
 
         {/* Main Content */}
         <main className="flex-1 overflow-auto">
-          <div className="container mx-auto p-4 md:p-6 lg:p-8 max-w-7xl">
+          <div className="container mx-auto p-3 sm:p-4 md:p-6 lg:p-8 max-w-7xl w-full">
             {children}
           </div>
         </main>

@@ -51,17 +51,17 @@ export default function CHWVisitsPage() {
 
   return (
     <DashboardLayout userType="cwh">
-      <div className="space-y-6">
+      <div className="space-y-4 md:space-y-6">
         {/* Header */}
-        <div className="flex justify-between items-center">
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <div>
-            <h1 className="text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
-              <Home className="h-8 w-8 text-blue-600" />
+            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white flex items-center gap-2">
+              <Home className="h-6 w-6 md:h-8 md:w-8 text-blue-600" />
               Home Visits
             </h1>
-            <p className="text-muted-foreground mt-1">Record and manage patient home visits</p>
+            <p className="text-sm md:text-base text-muted-foreground mt-1">Record and manage patient home visits</p>
           </div>
-          <Button onClick={() => router.push('/cwh/visits/new')}>
+          <Button onClick={() => router.push('/cwh/visits/new')} className="w-full sm:w-auto">
             <Plus className="h-4 w-4 mr-2" />
             New Visit
           </Button>
@@ -69,7 +69,7 @@ export default function CHWVisitsPage() {
 
         {/* Search */}
         <Card>
-          <CardContent className="pt-6">
+          <CardContent className="pt-4 md:pt-6">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
               <Input
@@ -83,37 +83,37 @@ export default function CHWVisitsPage() {
         </Card>
 
         {/* Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-3 md:gap-4">
           <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <CardContent className="pt-4 md:pt-6">
+              <div className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
                 {visits.filter(v => v.status === 'completed').length}
               </div>
-              <p className="text-sm text-muted-foreground">Completed</p>
+              <p className="text-xs md:text-sm text-muted-foreground">Completed</p>
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <CardContent className="pt-4 md:pt-6">
+              <div className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
                 {visits.filter(v => v.status === 'scheduled').length}
               </div>
-              <p className="text-sm text-muted-foreground">Scheduled</p>
+              <p className="text-xs md:text-sm text-muted-foreground">Scheduled</p>
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <CardContent className="pt-4 md:pt-6">
+              <div className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
                 {visits.filter(v => v.status === 'in-progress').length}
               </div>
-              <p className="text-sm text-muted-foreground">In Progress</p>
+              <p className="text-xs md:text-sm text-muted-foreground">In Progress</p>
             </CardContent>
           </Card>
           <Card>
-            <CardContent className="pt-6">
-              <div className="text-2xl font-bold text-gray-900 dark:text-white">
+            <CardContent className="pt-4 md:pt-6">
+              <div className="text-xl md:text-2xl font-bold text-gray-900 dark:text-white">
                 {visits.length}
               </div>
-              <p className="text-sm text-muted-foreground">Total Visits</p>
+              <p className="text-xs md:text-sm text-muted-foreground">Total Visits</p>
             </CardContent>
           </Card>
         </div>
@@ -121,7 +121,7 @@ export default function CHWVisitsPage() {
         {/* Visits List */}
         <Card>
           <CardHeader>
-            <CardTitle>Recent Visits</CardTitle>
+            <CardTitle className="text-base md:text-lg">Recent Visits</CardTitle>
           </CardHeader>
           <CardContent>
             {isLoading ? (
@@ -144,20 +144,20 @@ export default function CHWVisitsPage() {
                 {filteredVisits.map((visit) => (
                   <div
                     key={visit.id}
-                    className="flex items-center justify-between p-4 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between p-3 md:p-4 border rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer gap-3"
                     onClick={() => router.push(`/cwh/visits/${visit.id}`)}
                   >
                     <div className="flex-1">
-                      <div className="flex items-center gap-3 mb-2">
-                        <User className="h-4 w-4 text-muted-foreground" />
-                        <span className="font-medium text-gray-900 dark:text-white">
+                      <div className="flex items-center gap-2 md:gap-3 mb-2 flex-wrap">
+                        <User className="h-4 w-4 text-muted-foreground shrink-0" />
+                        <span className="font-medium text-sm md:text-base text-gray-900 dark:text-white">
                           {visit.patientName}
                         </span>
                         <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(visit.status)}`}>
                           {visit.status}
                         </span>
                       </div>
-                      <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                      <div className="flex items-center gap-3 md:gap-4 text-xs md:text-sm text-muted-foreground flex-wrap">
                         <div className="flex items-center gap-1">
                           <Calendar className="h-3 w-3" />
                           {new Date(visit.visitDate).toLocaleDateString()}
@@ -170,7 +170,7 @@ export default function CHWVisitsPage() {
                         )}
                       </div>
                     </div>
-                    <Button variant="ghost" size="sm">
+                    <Button variant="ghost" size="sm" className="w-full sm:w-auto">
                       View Details
                     </Button>
                   </div>
