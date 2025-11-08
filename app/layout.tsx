@@ -1,4 +1,7 @@
 import type { Metadata, Viewport } from "next";
+import { Toaster } from "sonner";
+import { PWAInstallPrompt } from "@/components/pwa-install-prompt";
+import { HealthAlertsMonitor } from "@/components/health-alerts-monitor";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -37,6 +40,9 @@ export default function RootLayout({
       </head>
       <body className="antialiased">
         {children}
+        <Toaster position="top-right" richColors closeButton />
+        <PWAInstallPrompt />
+        <HealthAlertsMonitor />
       </body>
     </html>
   );

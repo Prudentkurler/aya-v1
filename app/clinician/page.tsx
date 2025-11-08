@@ -8,71 +8,71 @@ export default function ClinicianDashboard() {
   return (
     <DashboardLayout userType="clinician">
       {/* Header */}
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-slate-900 dark:text-white mb-2">
+      <div className="mb-6 md:mb-8">
+        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
           Clinical Dashboard
         </h1>
-        <p className="text-slate-600 dark:text-slate-400">
+        <p className="text-sm md:text-base text-slate-600 dark:text-slate-400">
           Manage your patient cases and monitor health metrics
         </p>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+              <p className="text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400">
                 Active Patients
               </p>
-              <p className="text-3xl font-bold text-slate-900 dark:text-white mt-2">24</p>
+              <p className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mt-2">24</p>
             </div>
-            <Users className="w-8 h-8 text-blue-600 opacity-50" />
+            <Users className="w-6 h-6 md:w-8 md:h-8 text-blue-600 opacity-50" />
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-6">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+              <p className="text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400">
                 Critical Alerts
               </p>
-              <p className="text-3xl font-bold text-red-600 dark:text-red-400 mt-2">5</p>
+              <p className="text-2xl md:text-3xl font-bold text-red-600 dark:text-red-400 mt-2">5</p>
             </div>
-            <AlertCircle className="w-8 h-8 text-red-600 opacity-50" />
+            <AlertCircle className="w-6 h-6 md:w-8 md:h-8 text-red-600 opacity-50" />
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-6">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+              <p className="text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400">
                 Cases Resolved
               </p>
-              <p className="text-3xl font-bold text-green-600 dark:text-green-400 mt-2">18</p>
+              <p className="text-2xl md:text-3xl font-bold text-green-600 dark:text-green-400 mt-2">18</p>
             </div>
-            <CheckCircle className="w-8 h-8 text-green-600 opacity-50" />
+            <CheckCircle className="w-6 h-6 md:w-8 md:h-8 text-green-600 opacity-50" />
           </div>
         </div>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-6">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-medium text-slate-600 dark:text-slate-400">
+              <p className="text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400">
                 Pending Actions
               </p>
-              <p className="text-3xl font-bold text-yellow-600 dark:text-yellow-400 mt-2">7</p>
+              <p className="text-2xl md:text-3xl font-bold text-yellow-600 dark:text-yellow-400 mt-2">7</p>
             </div>
-            <Clock className="w-8 h-8 text-yellow-600 opacity-50" />
+            <Clock className="w-6 h-6 md:w-8 md:h-8 text-yellow-600 opacity-50" />
           </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
         {/* Critical Patients */}
-        <div className="lg:col-span-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-6">
-          <h2 className="text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-            <AlertCircle className="w-5 h-5 text-red-600" />
+        <div className="lg:col-span-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
+          <h2 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+            <AlertCircle className="w-4 h-4 md:w-5 md:h-5 text-red-600" />
             Patients Requiring Attention
           </h2>
           <div className="space-y-3">
@@ -85,11 +85,11 @@ export default function ClinicianDashboard() {
             ].map((patient, i) => (
               <div
                 key={i}
-                className="flex items-center justify-between p-4 bg-slate-50 dark:bg-slate-800 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer"
+                className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 p-3 md:p-4 bg-slate-50 dark:bg-slate-800 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer"
               >
-                <div>
-                  <p className="font-medium text-slate-900 dark:text-white">{patient.name}</p>
-                  <p className="text-sm text-slate-500 dark:text-slate-400">{patient.condition}</p>
+                <div className="flex-1">
+                  <p className="text-sm md:text-base font-medium text-slate-900 dark:text-white">{patient.name}</p>
+                  <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400">{patient.condition}</p>
                 </div>
                 <span
                   className={`px-3 py-1 rounded-full text-xs font-medium ${
@@ -115,32 +115,32 @@ export default function ClinicianDashboard() {
 
         {/* Quick Actions */}
         <div className="space-y-4">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-6">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
+            <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-4">
               Quick Actions
             </h3>
             <div className="space-y-2">
               <Link
                 href="/clinician/patients"
-                className="block w-full px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors text-center"
+                className="block w-full px-4 py-2.5 md:py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors text-center text-sm md:text-base"
               >
                 View Patients
               </Link>
               <Link
                 href="/clinician/alerts"
-                className="block w-full px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors text-center"
+                className="block w-full px-4 py-2.5 md:py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors text-center text-sm md:text-base"
               >
                 View Alerts
               </Link>
               <Link
                 href="/clinician/reports"
-                className="block w-full px-4 py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors text-center"
+                className="block w-full px-4 py-2.5 md:py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors text-center text-sm md:text-base"
               >
                 Generate Report
               </Link>
               <Link
                 href="/clinician/cases"
-                className="block w-full px-4 py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors text-center"
+                className="block w-full px-4 py-2.5 md:py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors text-center text-sm md:text-base"
               >
                 Manage Cases
               </Link>
@@ -148,8 +148,8 @@ export default function ClinicianDashboard() {
           </div>
 
           {/* Stats */}
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-6 text-white">
-            <h3 className="font-semibold mb-3">Performance</h3>
+          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-4 md:p-6 text-white">
+            <h3 className="text-sm md:text-base font-semibold mb-3">Performance</h3>
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span>Case Resolution</span>

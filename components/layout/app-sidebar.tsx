@@ -176,6 +176,11 @@ export function AppSidebar({ userType = 'patient' }: AppSidebarProps) {
             href: '/profile',
             icon: <Settings className="w-5 h-5" />,
           },
+          {
+            label: '⚙️ Admin/Demo',
+            href: '/admin',
+            icon: <Settings className="w-5 h-5" />,
+          },
         ];
     }
   };
