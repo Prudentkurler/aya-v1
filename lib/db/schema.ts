@@ -32,7 +32,7 @@ export class HealthDB extends Dexie {
 
   constructor() {
     super('HealthDB');
-    this.version(2).stores({
+    this.version(3).stores({
       measurements:
         '++id, userId, serverId, type, measuredAt, synced, [userId+type+measuredAt]',
       medications: '++id, userId, serverId, createdAt',
@@ -46,6 +46,10 @@ export class HealthDB extends Dexie {
       chwVisits: '++id, serverId, userId, chwId, visitDate, synced',
       referrals: '++id, serverId, userId, chwId, facilityId, status, createdAt, synced',
       healthEducation: '++id, serverId, category, language',
+      compounds: '++id, serverId, name, location, leaderUserId, createdAt',
+      compoundMembers: '++id, compoundId, userId, relationship, [compoundId+userId]',
+      familyHealthChampions: '++id, userId, compoundId, appointedAt, [compoundId+userId]',
+      literacyProfiles: 'userId, level, detectedAt',
     });
   }
 

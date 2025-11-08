@@ -2,7 +2,9 @@
 
 import Link from 'next/link';
 import { Heart, TrendingUp, Pill, AlertCircle, Calendar, Activity } from 'lucide-react';
-import { DashboardLayout } from '@/components/layout/dashboard-layout';
+import { AppLayout } from '@/components/layout/app-layout';
+import { FamilyDashboard } from '@/components/family/family-dashboard';
+import { FamilyChampionToggle } from '@/components/family/family-champion-toggle';
 
 interface StatCard {
   label: string;
@@ -54,8 +56,22 @@ export default function DashboardPage() {
     yellow: 'bg-yellow-50 text-yellow-700 dark:bg-yellow-900/20 dark:text-yellow-400',
   };
 
+  // Check if user is a Family Health Champion (from localStorage or context)
+  const isFamilyChampion = typeof window !== 'undefined' && 
+    localStorage.getItem('isFamilyHealthChampion') === 'true';
+
+  // If user is a Family Health Champion, show the family dashboard
+  if (isFamilyChampion) {
+    return (
+      <AppLayout userRole="patient" userName="Akua (Family Champion)">
+        <FamilyDashboard />
+        <FamilyChampionToggle />
+      </AppLayout>
+    );
+  }
+
   return (
-    <DashboardLayout userType="patient">
+    <AppLayout userRole="patient" userName="Kofi Mensah">
       {/* Header */}
       <div className="mb-6 md:mb-8">
         <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
@@ -174,7 +190,7 @@ export default function DashboardPage() {
 
       {/* Alerts */}
       <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4 flex gap-3">
-        <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
+        <AlertCircle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0 mt-0.5" />
         <div>
           <p className="font-medium text-amber-900 dark:text-amber-200">
             Medication Reminder
@@ -184,6 +200,7 @@ export default function DashboardPage() {
           </p>
         </div>
       </div>
-    </DashboardLayout>
+      <FamilyChampionToggle />
+    </AppLayout>
   );
 }
