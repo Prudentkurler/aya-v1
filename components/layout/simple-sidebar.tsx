@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Heart, LayoutDashboard, Activity, Pill, Users, BarChart3, Settings, Bell, FileText, TrendingUp } from "lucide-react";
+import { Heart, LayoutDashboard, Activity, Pill, Users, BarChart3, Settings, Bell, FileText, TrendingUp, Home } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 interface SimpleSidebarProps {
-  userRole?: "patient" | "chw" | "clinician" | "admin";
+  userRole?: "patient" | "chw" | "clinician" | "admin" | "family";
   userName?: string;
 }
 
@@ -34,11 +34,19 @@ const CLINICIAN_NAV = [
   { title: "Alerts", href: "/clinician/alerts", icon: Bell },
 ];
 
+const FAMILY_NAV = [
+  { title: "Family Health", href: "/family", icon: Home },
+  { title: "Members", href: "/family/members", icon: Users },
+  { title: "Progress", href: "/family/progress", icon: TrendingUp },
+  { title: "Resources", href: "/family/resources", icon: FileText },
+];
+
 export function SimpleSidebar({ userRole = "patient", userName = "User" }: SimpleSidebarProps) {
   const pathname = usePathname();
   const navItems = 
     userRole === "chw" ? CHW_NAV :
     userRole === "clinician" ? CLINICIAN_NAV :
+    userRole === "family" ? FAMILY_NAV :
     PATIENT_NAV;
 
   return (
@@ -51,7 +59,7 @@ export function SimpleSidebar({ userRole = "patient", userName = "User" }: Simpl
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-semibold">ME APOMUDEN</span>
-            <span className="text-xs text-muted-foreground capitalize">{userRole}</span>
+            <span className="text-xs text-muted-foreground capitalize">{userRole === "family" ? "Family Champion" : userRole}</span>
           </div>
         </Link>
       </div>

@@ -5,10 +5,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Bell, Users, Activity, Clock, AlertCircle, CheckCircle, Calendar } from "lucide-react";
+import { AudioGuide } from "@/components/dashboard/audio-guide";
+import { TutorialOverlay } from "@/components/dashboard/tutorial-overlay";
+import { CHW_TUTORIAL_STEPS } from "@/lib/tutorial-steps";
 
 export default function CHWPage() {
+  const welcomeMessage = "Welcome Sarah Osei, Community Health Worker for Dansoman District. You are managing 142 patients with 47 screenings this month. You have 5 active alerts requiring attention, with 2 critical cases.";
+
   return (
     <div className="flex min-h-screen w-full">
+      {/* Tutorial Overlay - First Visit */}
+      <TutorialOverlay 
+        steps={CHW_TUTORIAL_STEPS}
+        storageKey="chw-dashboard-tutorial"
+        userRole="chw"
+      />
+
       {/* Sidebar - Static positioning */}
       <div className="hidden md:block w-64">
         <SimpleSidebar userRole="chw" userName="Community Health Worker" />
@@ -26,6 +38,7 @@ export default function CHWPage() {
               </p>
             </div>
             <div className="flex items-center gap-2">
+              <AudioGuide text={welcomeMessage} />
               <Badge variant="outline" className="hidden sm:flex">
                 Offline Ready
               </Badge>

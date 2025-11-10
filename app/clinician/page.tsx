@@ -5,10 +5,22 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Bell, Users, FileText, AlertTriangle, CheckCircle2, Clock } from "lucide-react";
+import { AudioGuide } from "@/components/dashboard/audio-guide";
+import { TutorialOverlay } from "@/components/dashboard/tutorial-overlay";
+import { CLINICIAN_TUTORIAL_STEPS } from "@/lib/tutorial-steps";
 
 export default function ClinicianPage() {
+  const welcomeMessage = "Welcome Doctor Adjei, Physician at Korle Bu Teaching Hospital. You have 38 active patients under your care, with 7 critical alerts requiring urgent review. 23 cases have been resolved this week.";
+
   return (
     <div className="flex min-h-screen w-full">
+      {/* Tutorial Overlay - First Visit */}
+      <TutorialOverlay 
+        steps={CLINICIAN_TUTORIAL_STEPS}
+        storageKey="clinician-dashboard-tutorial"
+        userRole="clinician"
+      />
+
       {/* Sidebar - Static positioning */}
       <div className="hidden md:block w-64">
         <SimpleSidebar userRole="clinician" userName="Dr. Clinician" />
@@ -26,6 +38,7 @@ export default function ClinicianPage() {
               </p>
             </div>
             <div className="flex items-center gap-2">
+              <AudioGuide text={welcomeMessage} />
               <Badge variant="outline" className="hidden sm:flex">
                 Offline Ready
               </Badge>

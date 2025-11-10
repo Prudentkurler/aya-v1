@@ -7,10 +7,22 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { Separator } from "@/components/ui/separator";
 import { Bell, Heart, Activity, Pill, Plus, Calendar, AlertCircle } from "lucide-react";
+import { AudioGuide } from "@/components/dashboard/audio-guide";
+import { TutorialOverlay } from "@/components/dashboard/tutorial-overlay";
+import { PATIENT_TUTORIAL_STEPS } from "@/lib/tutorial-steps";
 
 export default function DashboardPage() {
+  const welcomeMessage = "Welcome back, Kwame! Your health summary for today shows your blood pressure at 132 over 86, glucose at 98, and medication adherence at 85 percent. Keep up the good work!";
+
   return (
     <div className="flex min-h-screen w-full">
+      {/* Tutorial Overlay - First Visit */}
+      <TutorialOverlay 
+        steps={PATIENT_TUTORIAL_STEPS}
+        storageKey="patient-dashboard-tutorial"
+        userRole="patient"
+      />
+
       {/* Sidebar - Static positioning */}
       <div className="hidden md:block w-64">
         <SimpleSidebar userRole="patient" userName="Patient User" />
@@ -28,6 +40,7 @@ export default function DashboardPage() {
               </p>
             </div>
             <div className="flex items-center gap-2">
+              <AudioGuide text={welcomeMessage} />
               <Badge variant="outline" className="hidden sm:flex">
                 Offline Ready
               </Badge>
