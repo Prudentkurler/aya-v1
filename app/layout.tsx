@@ -6,16 +6,36 @@ import { OnboardingTour } from "@/components/onboarding/onboarding-tour";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Me Apomuden - Patient Health PWA",
-  description: "Your health companion - Track BP, glucose, and medications offline-first",
+  title: "ME APOMUDEN - Health Monitoring Platform",
+  description: "Track your blood pressure, glucose, and medications offline. Your comprehensive health companion in Ghana.",
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Me Apomuden",
+    title: "ME APOMUDEN",
+    startupImage: [
+      {
+        url: "/icon-512x512.png",
+        media: "(device-width: 768px) and (device-height: 1024px)",
+      },
+    ],
   },
   formatDetection: {
     telephone: false,
+  },
+  applicationName: "ME APOMUDEN",
+  keywords: ["health", "blood pressure", "glucose", "medication", "Ghana", "offline", "PWA"],
+  authors: [{ name: "Health Tech 4 Africa" }],
+  creator: "Health Tech 4 Africa",
+  publisher: "Health Tech 4 Africa",
+  icons: {
+    icon: [
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512x512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+    ],
   },
 };
 

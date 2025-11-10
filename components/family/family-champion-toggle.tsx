@@ -1,35 +1,36 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import { Users } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 
-export function FamilyChampionToggle() {
-  const [isChampion, setIsChampion] = useState(false);
+interface FamilyChampionToggleProps {
+  isFamilyChampion: boolean;
+  onToggle: (value: boolean) => void;
+}
 
+export function FamilyChampionToggle({ isFamilyChampion, onToggle }: FamilyChampionToggleProps) {
   useEffect(() => {
     const status = localStorage.getItem('isFamilyHealthChampion') === 'true';
-    setIsChampion(status);
-  }, []);
+    onToggle(status);
+  }, [onToggle]);
 
   const toggle = () => {
-    const newStatus = !isChampion;
+    const newStatus = !isFamilyChampion;
     localStorage.setItem('isFamilyHealthChampion', String(newStatus));
-    setIsChampion(newStatus);
-    window.location.reload(); // Refresh to show/hide family dashboard
+    onToggle(newStatus);
   };
 
   return (
-    <div className="fixed bottom-4 right-4 z-50">
+    <div className="mb-6">
       <Button
         onClick={toggle}
-        variant={isChampion ? 'default' : 'outline'}
+        variant={isFamilyChampion ? 'default' : 'outline'}
         size="sm"
-        className="shadow-lg"
+        className="shadow-sm"
       >
         <Users className="h-4 w-4 mr-2" />
-        {isChampion ? 'Family Champion Mode' : 'Regular Patient Mode'}
+        {isFamilyChampion ? 'Switch to Patient View' : 'Switch to Family Champion View'}
       </Button>
     </div>
   );

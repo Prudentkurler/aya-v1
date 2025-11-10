@@ -9,18 +9,15 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import {
   Users,
   TrendingUp,
-  TrendingDown,
-  Minus,
   CheckCircle2,
   AlertCircle,
   Clock,
-  DollarSign,
   Heart,
   Pill,
-  Activity,
   ChevronRight,
   Award,
-  Target
+  Target,
+  Info
 } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
@@ -32,7 +29,7 @@ interface FamilyMember {
   relationship: string;
   avatar?: string;
   bpStatus: 'good' | 'moderate' | 'critical';
-  medicationAdherence: number; // percentage
+  medicationAdherence: number;
   lastReading: string;
   bpReading?: string;
 }
@@ -41,19 +38,16 @@ interface CompoundStats {
   totalMembers: number;
   membersControlled: number;
   avgAdherence: number;
-  earningsThisMonth: number;
-  earningsPotential: number;
   criticalAlerts: number;
+  weeklyCheckIns: number;
 }
 
-// Demo data
 const DEMO_COMPOUND_STATS: CompoundStats = {
   totalMembers: 25,
   membersControlled: 18,
   avgAdherence: 78,
-  earningsThisMonth: 350,
-  earningsPotential: 500,
   criticalAlerts: 2,
+  weeklyCheckIns: 21,
 };
 
 const DEMO_FAMILY_MEMBERS: FamilyMember[] = [
@@ -146,9 +140,25 @@ export function FamilyDashboard() {
           Adeyemi Compound Health Dashboard
         </h1>
         <p className="text-muted-foreground mt-1">
-          Family Health Champion view • Monitor and support your family's health
+          Family Health Champion • Supporting your family's health journey together
         </p>
       </div>
+
+      {/* Role Info Card */}
+      <Card className="bg-gradient-to-r from-purple-50 to-blue-50 dark:from-purple-950 dark:to-blue-950 border-purple-200 dark:border-purple-800">
+        <CardContent className="pt-6">
+          <div className="flex items-start gap-3">
+            <Info className="h-5 w-5 text-purple-600 dark:text-purple-400 mt-0.5 shrink-0" />
+            <div>
+              <h3 className="font-semibold text-purple-900 dark:text-purple-100">Your Role as Family Health Champion</h3>
+              <p className="text-sm text-purple-800 dark:text-purple-200 mt-1">
+                As the designated health champion for Adeyemi Compound, you help monitor and support your family members' 
+                health progress. Your care and attention keeps everyone healthy and motivated!
+              </p>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
 
       {/* Stats Overview */}
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
@@ -165,6 +175,9 @@ export function FamilyDashboard() {
               {stats.membersControlled} with BP controlled
             </p>
             <Progress value={controlRate} className="mt-2 h-2" />
+            <p className="text-xs font-medium text-green-600 dark:text-green-400 mt-1">
+              {controlRate}% control rate
+            </p>
           </CardContent>
         </Card>
 
@@ -177,30 +190,33 @@ export function FamilyDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.avgAdherence}%</div>
-            <div className="flex items-center text-xs text-green-600 mt-1">
+            <p className="text-xs text-muted-foreground mt-1">
+              Average across all members
+            </p>
+            <Progress value={stats.avgAdherence} className="mt-2 h-2" />
+            <div className="flex items-center text-xs text-green-600 dark:text-green-400 mt-1">
               <TrendingUp className="h-3 w-3 mr-1" />
               +8% from last month
             </div>
-            <Progress value={stats.avgAdherence} className="mt-2 h-2" />
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">
-              Earnings This Month
+              Weekly Check-ins
             </CardTitle>
-            <DollarSign className="h-4 w-4 text-muted-foreground" />
+            <CheckCircle2 className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">GHS {stats.earningsThisMonth}</div>
+            <div className="text-2xl font-bold">{stats.weeklyCheckIns}/{stats.totalMembers}</div>
             <p className="text-xs text-muted-foreground mt-1">
-              / GHS {stats.earningsPotential} potential
+              Members checked this week
             </p>
-            <Progress 
-              value={(stats.earningsThisMonth / stats.earningsPotential) * 100} 
-              className="mt-2 h-2" 
-            />
+            <Progress value={(stats.weeklyCheckIns / stats.totalMembers) * 100} className="mt-2 h-2" />
+            <p className="text-xs font-medium text-blue-600 dark:text-blue-400 mt-1">
+              Great engagement!
+            </p>
           </CardContent>
         </Card>
 
@@ -213,53 +229,63 @@ export function FamilyDashboard() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{stats.criticalAlerts}</div>
-            <p className="text-xs text-red-600 mt-1">
-              Require immediate attention
+            <p className="text-xs text-muted-foreground mt-1">
+              Need immediate attention
             </p>
-            <Button variant="destructive" size="sm" className="mt-2 w-full">
-              View Alerts
-            </Button>
+            {stats.criticalAlerts > 0 ? (
+              <Button variant="destructive" size="sm" className="mt-2 w-full">
+                View Alerts
+              </Button>
+            ) : (
+              <div className="mt-2 text-xs text-green-600 dark:text-green-400 flex items-center gap-1">
+                <CheckCircle2 className="h-3 w-3" />
+                All members doing well
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>
 
       {/* Family Achievement */}
-      <Card className="bg-gradient-to-r from-purple-50 to-purple-100 dark:from-purple-950 dark:to-purple-900 border-purple-200 dark:border-purple-800">
+      <Card className="bg-gradient-to-r from-green-50 to-emerald-50 dark:from-green-950 dark:to-emerald-950 border-green-200 dark:border-green-800">
         <CardHeader>
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
-              <Award className="h-6 w-6 text-purple-600 dark:text-purple-400" />
-              <CardTitle>Family Health Achievement</CardTitle>
+              <Award className="h-6 w-6 text-green-600 dark:text-green-400" />
+              <CardTitle>Family Health Progress</CardTitle>
             </div>
-            <Badge variant="secondary" className="bg-purple-200 text-purple-900 dark:bg-purple-800 dark:text-purple-100">
-              Top Performer
+            <Badge variant="secondary" className="bg-green-200 text-green-900 dark:bg-green-800 dark:text-green-100">
+              Excellent!
             </Badge>
           </div>
-          <CardDescription className="text-purple-900 dark:text-purple-200">
-            Your compound ranks #3 in the district!
+          <CardDescription className="text-green-900 dark:text-green-200">
+            Your family is making great progress on health goals
           </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="grid md:grid-cols-3 gap-4">
             <div className="flex items-center gap-2">
-              <Target className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+              <Target className="h-5 w-5 text-green-600 dark:text-green-400" />
               <div>
                 <p className="text-sm font-medium">Adherence Goal</p>
                 <p className="text-2xl font-bold">{stats.avgAdherence}%</p>
+                <p className="text-xs text-muted-foreground">Target: 80%</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <Heart className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+              <Heart className="h-5 w-5 text-green-600 dark:text-green-400" />
               <div>
                 <p className="text-sm font-medium">BP Control Rate</p>
                 <p className="text-2xl font-bold">{controlRate}%</p>
+                <p className="text-xs text-muted-foreground">Target: 70%</p>
               </div>
             </div>
             <div className="flex items-center gap-2">
-              <DollarSign className="h-5 w-5 text-purple-600 dark:text-purple-400" />
+              <CheckCircle2 className="h-5 w-5 text-green-600 dark:text-green-400" />
               <div>
-                <p className="text-sm font-medium">Monthly Earnings</p>
-                <p className="text-2xl font-bold">GHS {stats.earningsThisMonth}</p>
+                <p className="text-sm font-medium">Check-in Rate</p>
+                <p className="text-2xl font-bold">{Math.round((stats.weeklyCheckIns / stats.totalMembers) * 100)}%</p>
+                <p className="text-xs text-muted-foreground">This week</p>
               </div>
             </div>
           </div>
@@ -275,14 +301,14 @@ export function FamilyDashboard() {
           </CardDescription>
         </CardHeader>
         <CardContent className="p-0">
-          <div className="divide-y">
+          <div className="divide-y max-h-[500px] overflow-y-auto">
             {members.map((member) => (
               <div
                 key={member.id}
                 className="flex items-center justify-between p-4 hover:bg-muted/50 transition-colors"
               >
-                <div className="flex items-center gap-4 flex-1">
-                  <Avatar className="h-12 w-12">
+                <div className="flex items-center gap-4 flex-1 min-w-0">
+                  <Avatar className="h-12 w-12 shrink-0">
                     <AvatarImage src={member.avatar} alt={member.name} />
                     <AvatarFallback>
                       {member.name.split(' ').map(n => n[0]).join('')}
@@ -292,17 +318,17 @@ export function FamilyDashboard() {
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2 mb-1">
                       <p className="font-semibold truncate">{member.name}</p>
-                      <Badge variant="outline" className="text-xs">
+                      <Badge variant="outline" className="text-xs shrink-0">
                         {member.age}y
                       </Badge>
                     </div>
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-muted-foreground truncate">
                       {member.relationship} • Last reading: {member.lastReading}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-4 shrink-0">
                   {/* BP Reading */}
                   <div className="hidden sm:block text-right">
                     <p className="text-sm font-medium">BP: {member.bpReading}</p>
@@ -318,13 +344,13 @@ export function FamilyDashboard() {
                   {/* Medication Adherence */}
                   <div className="hidden md:block text-right min-w-[100px]">
                     <p className="text-sm font-medium mb-1">
-                      {member.medicationAdherence}% adherence
+                      {member.medicationAdherence}%
                     </p>
                     <Progress value={member.medicationAdherence} className="h-2" />
                   </div>
 
                   {/* Action */}
-                  <Button variant="ghost" size="icon">
+                  <Button variant="ghost" size="icon" className="shrink-0">
                     <ChevronRight className="h-4 w-4" />
                   </Button>
                 </div>
@@ -337,49 +363,6 @@ export function FamilyDashboard() {
             <Users className="h-4 w-4 mr-2" />
             Add Family Member
           </Button>
-        </CardFooter>
-      </Card>
-
-      {/* Earnings Breakdown */}
-      <Card>
-        <CardHeader>
-          <CardTitle>Monthly Earnings Breakdown</CardTitle>
-          <CardDescription>
-            Your rewards for keeping the family healthy
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Heart className="h-4 w-4 text-green-600" />
-              <span className="text-sm">BP Control (18/25 members)</span>
-            </div>
-            <span className="font-semibold">GHS 144</span>
-          </div>
-          <Separator />
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Pill className="h-4 w-4 text-blue-600" />
-              <span className="text-sm">Medication Adherence (78%)</span>
-            </div>
-            <span className="font-semibold">GHS 156</span>
-          </div>
-          <Separator />
-          <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2">
-              <Award className="h-4 w-4 text-purple-600" />
-              <span className="text-sm">District Ranking Bonus (#3)</span>
-            </div>
-            <span className="font-semibold">GHS 50</span>
-          </div>
-          <Separator />
-          <div className="flex items-center justify-between font-bold text-lg">
-            <span>Total This Month</span>
-            <span className="text-green-600">GHS {stats.earningsThisMonth}</span>
-          </div>
-        </CardContent>
-        <CardFooter className="bg-muted/50 text-sm text-muted-foreground">
-          💡 Tip: Reach 85% average adherence to unlock GHS 100 bonus next month!
         </CardFooter>
       </Card>
     </div>

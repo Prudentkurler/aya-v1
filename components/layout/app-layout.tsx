@@ -249,7 +249,7 @@ interface AppLayoutProps {
   userAvatar?: string;
 }
 
-function AppSidebarComponent({ userRole = 'patient', userName = 'User', userAvatar }: Omit<AppLayoutProps, 'children'>) {
+export function AppSidebarComponent({ userRole = 'patient', userName = 'User', userAvatar }: Omit<AppLayoutProps, 'children'>) {
   const pathname = usePathname();
   const navItems = 
     userRole === 'chw' ? CHW_NAV :
@@ -419,38 +419,23 @@ function AppSidebarComponent({ userRole = 'patient', userName = 'User', userAvat
 export function AppLayout({ children, userRole = 'patient', userName = 'User', userAvatar }: AppLayoutProps) {
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full">
-        <AppSidebarComponent userRole={userRole} userName={userName} userAvatar={userAvatar} />
-        
-        <SidebarInset className="flex-1">
-          {/* Header */}
-          <header className="sticky top-0 z-10 flex h-16 shrink-0 items-center gap-2 border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4">
-            <SidebarTrigger className="-ml-1" />
-            <Separator orientation="vertical" className="mr-2 h-4" />
-            
-            <div className="flex flex-1 items-center justify-between">
-              <div>
-                <h1 className="text-lg font-semibold">ME APOMUDEN Health Platform</h1>
-                <p className="text-xs text-muted-foreground hidden sm:block">
-                  Track your health, stay connected with your care team
-                </p>
-              </div>
-              
-              <div className="flex items-center gap-2">
-                <Badge variant="outline" className="hidden sm:flex">
-                  Offline Ready
-                </Badge>
-                <Bell className="h-5 w-5 text-muted-foreground" />
-              </div>
+      <AppSidebarComponent userRole={userRole} userName={userName} userAvatar={userAvatar} />
+      <SidebarInset>
+        <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
+          <SidebarTrigger className="-ml-1" />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+          <div className="flex flex-1 items-center justify-between">
+            <h1 className="text-lg font-semibold">ME APOMUDEN</h1>
+            <div className="flex items-center gap-2">
+              <Badge variant="outline" className="hidden sm:flex">Offline</Badge>
+              <Bell className="h-5 w-5" />
             </div>
-          </header>
-
-          {/* Main Content */}
-          <main className="flex-1 p-4 md:p-6 lg:p-8">
-            {children}
-          </main>
-        </SidebarInset>
-      </div>
+          </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 p-4 md:p-6">
+          {children}
+        </div>
+      </SidebarInset>
     </SidebarProvider>
   );
 }

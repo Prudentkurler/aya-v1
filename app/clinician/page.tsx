@@ -1,180 +1,193 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { Users, AlertCircle, TrendingUp, FileText, CheckCircle, Clock } from 'lucide-react';
-import { DashboardLayout } from '@/components/layout/dashboard-layout';
+import { SimpleSidebar } from "@/components/layout/simple-sidebar";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Separator } from "@/components/ui/separator";
+import { Bell, Users, FileText, AlertTriangle, CheckCircle2, Clock } from "lucide-react";
 
-export default function ClinicianDashboard() {
+export default function ClinicianPage() {
   return (
-    <DashboardLayout userType="clinician">
-      {/* Header */}
-      <div className="mb-6 md:mb-8">
-        <h1 className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mb-2">
-          Clinical Dashboard
-        </h1>
-        <p className="text-sm md:text-base text-slate-600 dark:text-slate-400">
-          Manage your patient cases and monitor health metrics
-        </p>
+    <div className="flex min-h-screen w-full">
+      {/* Sidebar - Static positioning */}
+      <div className="hidden md:block w-64">
+        <SimpleSidebar userRole="clinician" userName="Dr. Clinician" />
       </div>
 
-      {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 mb-6 md:mb-8">
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
-          <div className="flex items-center justify-between">
+      {/* Main Content */}
+      <div className="flex-1 flex flex-col">
+        {/* Header */}
+        <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+          <div className="flex flex-1 items-center justify-between">
             <div>
-              <p className="text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400">
-                Active Patients
+              <h1 className="text-lg font-semibold">Clinician Dashboard</h1>
+              <p className="text-xs text-muted-foreground hidden sm:block">
+                Manage patient cases and clinical reviews
               </p>
-              <p className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mt-2">24</p>
             </div>
-            <Users className="w-6 h-6 md:w-8 md:h-8 text-blue-600 opacity-50" />
+            <div className="flex items-center gap-2">
+              <Badge variant="outline" className="hidden sm:flex">
+                Offline Ready
+              </Badge>
+              <Bell className="h-5 w-5 text-muted-foreground" />
+            </div>
           </div>
-        </div>
+        </header>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
-          <div className="flex items-center justify-between">
+        {/* Content */}
+        <main className="flex-1 p-4 md:p-6 lg:p-8">
+          <div className="space-y-6">
+            {/* Welcome Message */}
             <div>
-              <p className="text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400">
-                Critical Alerts
-              </p>
-              <p className="text-2xl md:text-3xl font-bold text-red-600 dark:text-red-400 mt-2">5</p>
+              <h2 className="text-2xl font-bold">Welcome, Dr. Adjei</h2>
+              <p className="text-muted-foreground">Physician - Korle Bu Teaching Hospital</p>
             </div>
-            <AlertCircle className="w-6 h-6 md:w-8 md:h-8 text-red-600 opacity-50" />
-          </div>
-        </div>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400">
-                Cases Resolved
-              </p>
-              <p className="text-2xl md:text-3xl font-bold text-green-600 dark:text-green-400 mt-2">18</p>
-            </div>
-            <CheckCircle className="w-6 h-6 md:w-8 md:h-8 text-green-600 opacity-50" />
-          </div>
-        </div>
+            {/* KPI Cards */}
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Active Patients</CardTitle>
+                  <Users className="h-4 w-4 text-blue-600" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">38</div>
+                  <p className="text-xs text-muted-foreground">Under your care</p>
+                  <p className="text-xs text-green-600 mt-1">+5 new referrals</p>
+                </CardContent>
+              </Card>
 
-        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
-          <div className="flex items-center justify-between">
-            <div>
-              <p className="text-xs md:text-sm font-medium text-slate-600 dark:text-slate-400">
-                Pending Actions
-              </p>
-              <p className="text-2xl md:text-3xl font-bold text-yellow-600 dark:text-yellow-400 mt-2">7</p>
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Critical Alerts</CardTitle>
+                  <AlertTriangle className="h-4 w-4 text-red-600" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">7</div>
+                  <p className="text-xs text-muted-foreground">Urgent review needed</p>
+                  <p className="text-xs text-red-600 mt-1">3 in last 24 hours</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Cases Resolved</CardTitle>
+                  <CheckCircle2 className="h-4 w-4 text-green-600" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">23</div>
+                  <p className="text-xs text-muted-foreground">This week</p>
+                  <p className="text-xs text-muted-foreground mt-1">92% resolution rate</p>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+                  <CardTitle className="text-sm font-medium">Pending Reports</CardTitle>
+                  <FileText className="h-4 w-4 text-orange-600" />
+                </CardHeader>
+                <CardContent>
+                  <div className="text-2xl font-bold">15</div>
+                  <p className="text-xs text-muted-foreground">Awaiting review</p>
+                  <p className="text-xs text-orange-600 mt-1">4 due today</p>
+                </CardContent>
+              </Card>
             </div>
-            <Clock className="w-6 h-6 md:w-8 md:h-8 text-yellow-600 opacity-50" />
+
+            {/* Patient Cases & Schedule */}
+            <div className="grid gap-4 md:grid-cols-2">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Active Patient Cases</CardTitle>
+                  <CardDescription>High priority cases requiring clinical attention</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div className="flex items-center gap-4">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Akosua Boateng, 52F</p>
+                      <p className="text-xs text-muted-foreground">MRN: 2024-HTN-0156 • Hypertension Stage 2</p>
+                      <p className="text-xs text-muted-foreground">BP: 172/105 mmHg - Requires medication adjustment</p>
+                    </div>
+                    <Badge variant="destructive">Critical</Badge>
+                  </div>
+                  <Separator />
+                  <div className="flex items-center gap-4">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Kofi Mensah, 58M</p>
+                      <p className="text-xs text-muted-foreground">MRN: 2024-DM-0298 • Type 2 Diabetes</p>
+                      <p className="text-xs text-muted-foreground">HbA1c: 8.2% - Poor glycemic control</p>
+                    </div>
+                    <Badge className="bg-orange-600">Monitoring</Badge>
+                  </div>
+                  <Separator />
+                  <div className="flex items-center gap-4">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Abena Kuffour, 61F</p>
+                      <p className="text-xs text-muted-foreground">MRN: 2024-HTN-0189 • Essential Hypertension</p>
+                      <p className="text-xs text-muted-foreground">BP: 142/88 mmHg - Stable, continue current therapy</p>
+                    </div>
+                    <Badge variant="outline">Stable</Badge>
+                  </div>
+                  <Separator />
+                  <div className="flex items-center gap-4">
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Yaw Owusu, 47M</p>
+                      <p className="text-xs text-muted-foreground">MRN: 2024-HTN-0203 • New Diagnosis</p>
+                      <p className="text-xs text-muted-foreground">BP: 155/98 mmHg - Initial workup pending</p>
+                    </div>
+                    <Badge className="bg-orange-600">Monitoring</Badge>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card>
+                <CardHeader>
+                  <CardTitle>Today&apos;s Schedule</CardTitle>
+                  <CardDescription>Your clinical activities for Nov 10, 2025</CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <div className="flex items-center gap-3">
+                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Morning Ward Rounds</p>
+                      <p className="text-xs text-muted-foreground">7:30 AM - Completed</p>
+                      <p className="text-xs text-muted-foreground">12 patients reviewed</p>
+                    </div>
+                  </div>
+                  <Separator />
+                  <div className="flex items-center gap-3">
+                    <CheckCircle2 className="h-4 w-4 text-green-600" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Outpatient Clinic</p>
+                      <p className="text-xs text-muted-foreground">10:00 AM - Completed</p>
+                      <p className="text-xs text-muted-foreground">8 consultations done</p>
+                    </div>
+                  </div>
+                  <Separator />
+                  <div className="flex items-center gap-3">
+                    <Clock className="h-4 w-4 text-orange-600" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Critical Patient Review</p>
+                      <p className="text-xs text-muted-foreground">2:30 PM - In Progress</p>
+                      <p className="text-xs text-muted-foreground">Akosua Boateng - HTN management</p>
+                    </div>
+                  </div>
+                  <Separator />
+                  <div className="flex items-center gap-3">
+                    <Clock className="h-4 w-4 text-muted-foreground" />
+                    <div className="flex-1">
+                      <p className="text-sm font-medium">Clinical Team Meeting</p>
+                      <p className="text-xs text-muted-foreground">4:00 PM - Upcoming</p>
+                      <p className="text-xs text-muted-foreground">Case discussions and handover</p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
-        </div>
+        </main>
       </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 md:gap-6">
-        {/* Critical Patients */}
-        <div className="lg:col-span-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
-          <h2 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-            <AlertCircle className="w-4 h-4 md:w-5 md:h-5 text-red-600" />
-            Patients Requiring Attention
-          </h2>
-          <div className="space-y-3">
-            {[
-              { name: 'Ama Asare', condition: 'High BP Crisis', status: 'Critical' },
-              { name: 'Kwesi Owusu', condition: 'Glucose Alert', status: 'Alert' },
-              { name: 'Yaa Mensah', condition: 'Medication Non-adherence', status: 'Warning' },
-              { name: 'Kofi Tawiah', condition: 'Follow-up Overdue', status: 'Follow-up' },
-              { name: 'Abena Boateng', condition: 'Referral Needed', status: 'Referral' },
-            ].map((patient, i) => (
-              <div
-                key={i}
-                className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 p-3 md:p-4 bg-slate-50 dark:bg-slate-800 rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors cursor-pointer"
-              >
-                <div className="flex-1">
-                  <p className="text-sm md:text-base font-medium text-slate-900 dark:text-white">{patient.name}</p>
-                  <p className="text-xs md:text-sm text-slate-500 dark:text-slate-400">{patient.condition}</p>
-                </div>
-                <span
-                  className={`px-3 py-1 rounded-full text-xs font-medium ${
-                    patient.status === 'Critical'
-                      ? 'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-                      : patient.status === 'Alert'
-                        ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400'
-                        : 'bg-blue-100 text-blue-700 dark:bg-blue-900/30 dark:text-blue-400'
-                  }`}
-                >
-                  {patient.status}
-                </span>
-              </div>
-            ))}
-          </div>
-          <Link
-            href="/clinician/patients"
-            className="block mt-4 text-center py-2 text-blue-600 hover:text-blue-700 dark:text-blue-400 font-medium"
-          >
-            View All Patients →
-          </Link>
-        </div>
-
-        {/* Quick Actions */}
-        <div className="space-y-4">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg p-4 md:p-6">
-            <h3 className="text-base md:text-lg font-semibold text-slate-900 dark:text-white mb-4">
-              Quick Actions
-            </h3>
-            <div className="space-y-2">
-              <Link
-                href="/clinician/patients"
-                className="block w-full px-4 py-2.5 md:py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition-colors text-center text-sm md:text-base"
-              >
-                View Patients
-              </Link>
-              <Link
-                href="/clinician/alerts"
-                className="block w-full px-4 py-2.5 md:py-2 bg-red-600 hover:bg-red-700 text-white rounded-lg font-medium transition-colors text-center text-sm md:text-base"
-              >
-                View Alerts
-              </Link>
-              <Link
-                href="/clinician/reports"
-                className="block w-full px-4 py-2.5 md:py-2 bg-green-600 hover:bg-green-700 text-white rounded-lg font-medium transition-colors text-center text-sm md:text-base"
-              >
-                Generate Report
-              </Link>
-              <Link
-                href="/clinician/cases"
-                className="block w-full px-4 py-2.5 md:py-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg font-medium transition-colors text-center text-sm md:text-base"
-              >
-                Manage Cases
-              </Link>
-            </div>
-          </div>
-
-          {/* Stats */}
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-lg p-4 md:p-6 text-white">
-            <h3 className="text-sm md:text-base font-semibold mb-3">Performance</h3>
-            <div className="space-y-2 text-sm">
-              <div className="flex justify-between">
-                <span>Case Resolution</span>
-                <span className="font-medium">85%</span>
-              </div>
-              <div className="w-full bg-white/20 rounded-full h-2">
-                <div
-                  className="bg-white rounded-full h-2"
-                  style={{ width: '85%' }}
-                />
-              </div>
-              <div className="flex justify-between mt-3">
-                <span>Patient Satisfaction</span>
-                <span className="font-medium">4.8/5</span>
-              </div>
-              <div className="w-full bg-white/20 rounded-full h-2">
-                <div
-                  className="bg-white rounded-full h-2"
-                  style={{ width: '96%' }}
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </DashboardLayout>
+    </div>
   );
 }
+
